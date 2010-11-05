@@ -13,7 +13,7 @@
     <description>Machine management</description>
     <display-name>MachineController</display-name>
     <servlet-name>MachineController</servlet-name>
-    <servlet-class>ch.unine.CMS.contoller.MachineController</servlet-class>
+    <servlet-class>ch.unine.CMS.controller.MachineController</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>MachineController</servlet-name>
