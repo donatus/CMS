@@ -1,4 +1,4 @@
-package ch.unine.CMS.contoller;
+package ch.unine.CMS.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
