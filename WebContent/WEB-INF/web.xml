@@ -19,4 +19,14 @@
     <servlet-name>MachineController</servlet-name>
     <url-pattern>/MachineController</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AuthenticationController</display-name>
+    <servlet-name>AuthenticationController</servlet-name>
+    <servlet-class>ch.unine.CMS.controller.AuthenticationController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AuthenticationController</servlet-name>
+    <url-pattern>/AuthenticationController</url-pattern>
+  </servlet-mapping>
 </web-app>
