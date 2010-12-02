@@ -4,12 +4,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.*;
 
-/**
- * @author hennebrueder This class garanties that only one single SessionFactory
- *         is instanciated and that the configuration is done thread safe as
- *         singleton. Actually it only wraps the Hibernate SessionFactory.
- *         You are free to use any kind of JTA or Thread transactionFactories.
- */
+
 
 @SuppressWarnings("deprecation")
 public class SessionFactoryUtil {
