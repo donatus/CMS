@@ -48,7 +48,7 @@
 	<ul>
 		<li><a href="#tabs-1">Home</a></li>
 		<li><a href="#tabs-2">Booking</a></li>
-		<li><a href="#tabs-3">Machine Management</a></li>
+		<li><a href="machineManagement.jsp">Machine Management</a></li>
 	</ul>
 	<div id="tabs-1">
 		<p></p>
