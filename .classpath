@@ -32,5 +32,6 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/lib/required/slf4j-api-1.6.1.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/google-collect-1.0-rc1.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jsr305.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/dom4j-full.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
