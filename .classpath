@@ -22,16 +22,25 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/hibernate3.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/mail.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/servlet-api.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/lib/bytecode/cglib/cglib-2.2.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/lib/jpa/hibernate-jpa-2.0-api-1.0.0.Final.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/lib/required/antlr-2.7.6.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/lib/required/commons-collections-3.1.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/lib/required/dom4j-1.6.1.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/lib/required/javassist-3.12.0.GA.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/lib/required/jta-1.1.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/lib/required/slf4j-api-1.6.1.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/google-collect-1.0-rc1.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jsr305.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/dom4j-full.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/antlr-2.7.6.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/c3p0-0.9.1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/cglib-2.2.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/commons-collections-3.1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/dom4j-1.6.1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/ehcache-1.5.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/hibernate-jpa-2.0-api-1.0.0.Final.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/infinispan-core-4.2.0.ALPHA1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/javassist-3.12.0.GA.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jbosscache-core-3.2.1.GA.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jta-1.1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/oscache-2.1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/proxool-0.8.3.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/slf4j-api-1.6.1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/slf4j-log4j12-1.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/slf4j-log4j12-1.5.6.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/swarmcache-1.0RC2.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
