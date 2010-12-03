@@ -53,9 +53,11 @@
 	<div id="tabs-1">
 		<p></p>
 	</div>
+	
 	<div id="tabs-2">
 		<p></p>
 	</div>
+	
 	<div id="tabs-3">
 		<p></p>
 		<p></p>
