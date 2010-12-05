@@ -16,7 +16,7 @@
 				      type: "POST",
 				      url: "/CMS/AuthenticationController",
 				      data: {login : $("#login").val(), passwd : $("#password").val()},
-				      success: function(data) {
+				      success: function(data){
 				    	  $('#dialog').dialog("close"); 
 				      },
 				      error: function(data){
