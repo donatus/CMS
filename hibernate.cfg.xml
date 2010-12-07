@@ -13,7 +13,7 @@
       <property name="show_sql">true</property>
       <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
       <property name="hibernate.hbm2ddl.auto">update</property>
-      <!-- Mapping files -->
-      <mapping resource="cluster_db.hbm.xml"/>
+      <!-- Enable Hibernate's automatic session context management -->
+        <property name="current_session_context_class">thread</property>
 </session-factory>
 </hibernate-configuration>

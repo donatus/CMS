@@ -1,6 +1,11 @@
 package ch.unine.CMS.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class EventHasMachineBean {
+	@Id
 	protected int t_events_id;
 	protected int t_machines_id;
 	protected int id;

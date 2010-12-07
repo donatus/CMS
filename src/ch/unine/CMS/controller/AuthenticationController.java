@@ -12,10 +12,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 
-import ch.unine.CMS.model.SessionFactoryUtil;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.AnnotationConfiguration;
+import org.hibernate.tool.hbm2ddl.SchemaExport;
+
+import ch.unine.CMS.model.EventBean;
+import ch.unine.CMS.model.EventBeanTest;
+import ch.unine.CMS.model.EventHasMachineBean;
+import ch.unine.CMS.model.MachineBean;
+import ch.unine.CMS.model.MachineKindBean;
 import ch.unine.CMS.model.UserBean;
 
 /**
@@ -43,7 +51,21 @@ public class AuthenticationController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
+		AnnotationConfiguration config = new AnnotationConfiguration();
+		config.addAnnotatedClass(EventBean.class);
+		config.configure();
 		
+		new SchemaExport(config).create(true, true);
+		
+		SessionFactory factory = config.buildSessionFactory(); 
+		Session sess = factory.getCurrentSession();
+		sess.beginTransaction();
+		EventBean event1 = new EventBean();
+		event1.setDescription("Hello");
+		event1.setId(100);
+		event1.setName("first");
+		sess.save(event1);
+		sess.getTransaction().commit();
 		if(session.getAttribute(LOGIN_NAME) == null){
 			response.sendRedirect(LOGIN_PAGE);
 			return;
@@ -69,11 +91,8 @@ public class AuthenticationController extends HttpServlet {
 		String password = request.getParameter("passwd");
 		
 		//TODO user and password verification
-		Transaction tx;
-		Session sessionHibernate =  SessionFactoryUtil.getInstance().getCurrentSession();
+		//Session sessionHibernate =  SessionFactoryUtil.getInstance().getCurrentSession();
 		
-		tx = sessionHibernate.beginTransaction();
-		List<UserBean> userList = sessionHibernate.createQuery("select h from Honey as h").list();
 		
 		//Session inscription
 		session.setAttribute(LOGIN_NAME, login);

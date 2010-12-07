@@ -1,6 +1,11 @@
 package ch.unine.CMS.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class UserBean {
+		@Id
 		protected int id;
 		protected String login;
 		protected String passwd;

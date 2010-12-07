@@ -3,6 +3,7 @@ package ch.unine.CMS.model;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.*;
+import org.hibernate.tool.hbm2ddl.SchemaExport;
 
 
 
@@ -10,19 +11,24 @@ import org.hibernate.cfg.*;
 public class SessionFactoryUtil {
 
   /** The single instance of hibernate SessionFactory */
-  private static org.hibernate.SessionFactory sessionFactory;
+  public static org.hibernate.SessionFactory sessionFactory;
 
 	/**
 	 * disable contructor to guaranty a single instance
 	 */
-	private SessionFactoryUtil() {
-	}
-
-	static{
+	public SessionFactoryUtil(){
 // Annotation and XML
-    //sessionFactory = new AnnotationConfiguration().configure().buildSessionFactory();
+		AnnotationConfiguration config = new AnnotationConfiguration();
+		config.addAnnotatedClass(EventBean.class);
+		config.addAnnotatedClass(EventHasMachineBean.class);
+		config.addAnnotatedClass(MachineBean.class);
+		config.addAnnotatedClass(MachineKindBean.class);
+		config.addAnnotatedClass(UserBean.class);
+		config.configure();
+		new SchemaExport(config).create(true, true);
+		sessionFactory = config.buildSessionFactory();
 // XML only
-		sessionFactory = new Configuration().configure().buildSessionFactory();
+		//sessionFactory = new Configuration().configure().buildSessionFactory();
   }
 
 	public static SessionFactory getInstance() {

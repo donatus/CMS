@@ -1,6 +1,11 @@
 package ch.unine.CMS.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class MachineKindBean {
+			@Id
 			protected int id;
 			protected String name;
 			protected String description;
