@@ -8,6 +8,17 @@ import org.hibernate.cfg.*;
 
 @SuppressWarnings("deprecation")
 public class SessionFactoryUtil {
+	
+	static {
+        try {
+            // Create the SessionFactory
+            sessionFactory = new Configuration().configure().buildSessionFactory();
+        } catch (Throwable ex) {
+            // Make sure you log the exception, as it might be swallowed
+            //log.error("Initial SessionFactory creation failed." + ex);
+            throw new ExceptionInInitializerError(ex);
+        }
+    }
 
   /** The single instance of hibernate SessionFactory */
   private static org.hibernate.SessionFactory sessionFactory;
@@ -17,13 +28,6 @@ public class SessionFactoryUtil {
 	 */
 	private SessionFactoryUtil() {
 	}
-
-	static{
-// Annotation and XML
-    //sessionFactory = new AnnotationConfiguration().configure().buildSessionFactory();
-// XML only
-		sessionFactory = new Configuration().configure().buildSessionFactory();
-  }
 
 	public static SessionFactory getInstance() {
 		return sessionFactory;
