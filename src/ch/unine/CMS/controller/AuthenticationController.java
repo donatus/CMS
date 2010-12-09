@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -12,17 +13,25 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 
-import ch.unine.CMS.model.SessionFactoryUtil;
-import ch.unine.CMS.model.UserBean;
+import org.hibernate.Criteria;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
+
+import ch.unine.CMS.model.*;
+
+
 
 /**
  * Servlet implementation class AuthenticationController
  */
 public class AuthenticationController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	private static String getUserLogin(String login, String password) {
+		return "FROM UserBean u WHERE u.login = " + login + " AND  u.passwd = " + password;
+	}
 
 	private static String LOGIN_TS = "loginTS";
 	
@@ -43,7 +52,21 @@ public class AuthenticationController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		
+//		AnnotationConfiguration config = new AnnotationConfiguration();
+//		config.addAnnotatedClass(EventBean.class);
+//		config.configure();
+//		
+//		new SchemaExport(config).create(true, true);
+//		
+//		SessionFactory factory = config.buildSessionFactory(); 
+//		Session sess = factory.getCurrentSession();
+//		sess.beginTransaction();
+//		EventBean event1 = new EventBean();
+//		event1.setDescription("Hello");
+//		event1.setId(100);
+//		event1.setName("first");
+//		sess.save(event1);
+//		sess.getTransaction().commit();
 		if(session.getAttribute(LOGIN_NAME) == null){
 			response.sendRedirect(LOGIN_PAGE);
 			return;
@@ -53,7 +76,8 @@ public class AuthenticationController extends HttpServlet {
 			aCal.add(Calendar.SECOND,10);
 			aCal.toString();
 			
-			if(aCal.before(new Date())){
+			if(aCal.before(Calendar.getInstance()) ){
+				System.out.println(aCal);
 				response.sendRedirect(LOGIN_PAGE);
 				return;
 			}
@@ -64,24 +88,38 @@ public class AuthenticationController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//Get current session
 		HttpSession session = request.getSession();
-		String login 	= request.getParameter("login");
-		String password = request.getParameter("passwd");
+		//Result (login) declaration
+		boolean result 		= false;
+		//capturing parameters (login and password)
+		String login 		= request.getParameter("login");
+		String password 	= request.getParameter("passwd");
 		
-		//TODO user and password verification
-		Transaction tx;
+		//Get hibernate session
 		Session sessionHibernate =  SessionFactoryUtil.getInstance().getCurrentSession();
+		//Begin transaction
+		sessionHibernate.beginTransaction();
+		//Create query
+		Criteria crit = sessionHibernate.createCriteria(UserBean.class);
+		crit.add( Restrictions.eq( "login", login ) );
+		crit.add( Restrictions.eq( "passwd", password ) );
+		crit.setMaxResults(1);
+		List cats = crit.list();
 		
-		tx = sessionHibernate.beginTransaction();
-		List<UserBean> userList = sessionHibernate.createQuery("select h from Honey as h").list();
+		//Iterate answer
+        for (Iterator it = cats.iterator(); it.hasNext();) {
+        	UserBean user = (UserBean) it.next();
+        	//Session inscription
+    		session.setAttribute(LOGIN_NAME, login);
+    		session.setAttribute(LOGIN_TS, new Date());
+    		PrintWriter out = response.getWriter();
+    		out.print("OK");
+    		out.close();
+    		return;
+        }
 		
-		//Session inscription
-		session.setAttribute(LOGIN_NAME, login);
-		session.setAttribute(LOGIN_TS, new Date());
-		//response.sendError(0);
-		PrintWriter out = response.getWriter();
-		out.print("OK");
-		out.close();
 	}
+
 
 }

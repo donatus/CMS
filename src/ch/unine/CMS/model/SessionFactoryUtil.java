@@ -3,6 +3,7 @@ package ch.unine.CMS.model;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.*;
+import org.hibernate.tool.hbm2ddl.SchemaExport;
 
 
 
@@ -21,14 +22,46 @@ public class SessionFactoryUtil {
     }
 
   /** The single instance of hibernate SessionFactory */
-  private static org.hibernate.SessionFactory sessionFactory;
+  public static org.hibernate.SessionFactory sessionFactory;
 
 	/**
 	 * disable contructor to guaranty a single instance
 	 */
-	private SessionFactoryUtil() {
-	}
 
+	public SessionFactoryUtil(){
+// Annotation and XML
+//		AnnotationConfiguration config = new AnnotationConfiguration();
+//		config.addAnnotatedClass(EventBean.class);
+//		config.addAnnotatedClass(EventHasMachineBean.class);
+//		config.addAnnotatedClass(MachineBean.class);
+//		config.addAnnotatedClass(MachineKindBean.class);
+//		config.addAnnotatedClass(UserBean.class);
+//		config.configure();
+//		new SchemaExport(config).create(true, true);
+//		sessionFactory = config.buildSessionFactory();
+// XML only
+		//sessionFactory = new Configuration().configure().buildSessionFactory();
+  }
+	
+	public static final ThreadLocal session = new ThreadLocal();
+    
+    public static Session currentSession() {
+        Session s = (Session) session.get();
+        // Open a new Session, if this Thread has none yet
+        if (s == null) {
+            s = sessionFactory.openSession();
+            session.set(s);
+        }
+        return s;
+    }
+    
+    public static void closeSession() {
+        Session s = (Session) session.get();
+        if (s != null)
+            s.close();
+        session.set(null);
+    }
+    
 	public static SessionFactory getInstance() {
 		return sessionFactory;
 	}

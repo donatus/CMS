@@ -1,14 +1,19 @@
 package ch.unine.CMS.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+
 public class UserBean {
-		protected int id;
+		protected Long id;
 		protected String login;
 		protected String passwd;
 		protected String contact;
-		protected int getId() {
+		
+		protected Long getId() {
 			return id;
 		}
-		protected void setId(int id) {
+		protected void setId(Long id) {
 			this.id = id;
 		}
 		protected String getLogin() {

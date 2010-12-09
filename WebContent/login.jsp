@@ -17,7 +17,9 @@
 				      url: "/CMS/AuthenticationController",
 				      data: {login : $("#login").val(), passwd : $("#password").val()},
 				      success: function(data){
-				    	  $('#dialog').dialog("close"); 
+				    	  if(data == "OK"){
+				    	  	$('#dialog').dialog("close");
+				    	  }
 				      },
 				      error: function(data){
 				    	  

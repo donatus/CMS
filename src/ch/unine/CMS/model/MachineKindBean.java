@@ -1,13 +1,18 @@
 package ch.unine.CMS.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class MachineKindBean {
-			protected int id;
+			@Id
+			protected Long id;
 			protected String name;
 			protected String description;
-			protected int getId() {
+			protected Long getId() {
 				return id;
 			}
-			protected void setId(int id) {
+			protected void setId(Long id) {
 				this.id = id;
 			}
 			protected String getName() {

@@ -1,26 +1,31 @@
 package ch.unine.CMS.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class EventHasMachineBean {
-	protected int t_events_id;
-	protected int t_machines_id;
-	protected int id;
+	@Id
+	protected Long eventId;
+	protected Long machineId;
+	protected Long id;
 	
-	protected int getT_events_id() {
-		return t_events_id;
+	protected Long getEventId() {
+		return eventId;
 	}
-	protected void setT_events_id(int t_events_id) {
-		this.t_events_id = t_events_id;
+	protected void setEventId(Long eventId) {
+		this.eventId = eventId;
 	}
-	protected int getT_machines_id() {
-		return t_machines_id;
+	protected Long getMachineId() {
+		return machineId;
 	}
-	protected void setT_machines_id(int t_machines_id) {
-		this.t_machines_id = t_machines_id;
+	protected void setMachineId(Long machineId) {
+		this.machineId = machineId;
 	}
-	protected int getId() {
+	protected Long getId() {
 		return id;
 	}
-	protected void setId(int id) {
+	protected void setId(Long id) {
 		this.id = id;
 	}
 	

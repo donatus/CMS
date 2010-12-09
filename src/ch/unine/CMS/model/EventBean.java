@@ -2,56 +2,52 @@ package ch.unine.CMS.model;
 
 import java.sql.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+@Entity
 public class EventBean {
-		protected int id;
-		protected Date start_time;
-		protected Date end_time;
+		@Id
+		protected Long id;
+		protected Date startTime;
+		protected Date endTime;
 		protected String name;
 		protected String description;
-		protected int user_id;
-		protected int t_users_id;
+		protected Long userId;
 		
-		protected int getId() {
+		public Long getId() {
 			return id;
 		}
-		protected void setId(int id) {
+		public void setId(Long id) {
 			this.id = id;
 		}
-		protected Date getStart_time() {
-			return start_time;
+		public Date getStartTime() {
+			return startTime;
 		}
-		protected void setStart_time(Date start_time) {
-			this.start_time = start_time;
+		public void setStartTime(Date startTime) {
+			this.startTime = startTime;
 		}
-		protected Date getEnd_time() {
-			return end_time;
+		public Date getEndTime() {
+			return endTime;
 		}
-		protected void setEnd_time(Date end_time) {
-			this.end_time = end_time;
+		public void setEndTime(Date endTime) {
+			this.endTime = endTime;
 		}
-		protected String getName() {
+		public String getName() {
 			return name;
 		}
-		protected void setName(String name) {
+		public void setName(String name) {
 			this.name = name;
 		}
-		protected String getDescription() {
+		public String getDescription() {
 			return description;
 		}
-		protected void setDescription(String description) {
+		public void setDescription(String description) {
 			this.description = description;
 		}
-		protected int getUser_id() {
-			return user_id;
+		public Long getUserId() {
+			return userId;
 		}
-		protected void setUser_id(int user_id) {
-			this.user_id = user_id;
+		public void setUserId(Long userId) {
+			this.userId = userId;
 		}
-		protected int getT_users_id() {
-			return t_users_id;
-		}
-		protected void setT_users_id(int t_users_id) {
-			this.t_users_id = t_users_id;
-		}
-		
 }
