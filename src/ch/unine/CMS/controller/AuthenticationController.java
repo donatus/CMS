@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 import ch.unine.CMS.model.*;
@@ -52,21 +53,6 @@ public class AuthenticationController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-//		AnnotationConfiguration config = new AnnotationConfiguration();
-//		config.addAnnotatedClass(EventBean.class);
-//		config.configure();
-//		
-//		new SchemaExport(config).create(true, true);
-//		
-//		SessionFactory factory = config.buildSessionFactory(); 
-//		Session sess = factory.getCurrentSession();
-//		sess.beginTransaction();
-//		EventBean event1 = new EventBean();
-//		event1.setDescription("Hello");
-//		event1.setId(100);
-//		event1.setName("first");
-//		sess.save(event1);
-//		sess.getTransaction().commit();
 		if(session.getAttribute(LOGIN_NAME) == null){
 			response.sendRedirect(LOGIN_PAGE);
 			return;
@@ -99,14 +85,15 @@ public class AuthenticationController extends HttpServlet {
 		//Get hibernate session
 		Session sessionHibernate =  SessionFactoryUtil.getInstance().getCurrentSession();
 		//Begin transaction
-		sessionHibernate.beginTransaction();
+		Transaction tx = sessionHibernate.beginTransaction();
 		//Create query
 		Criteria crit = sessionHibernate.createCriteria(UserBean.class);
 		crit.add( Restrictions.eq( "login", login ) );
 		crit.add( Restrictions.eq( "passwd", password ) );
 		crit.setMaxResults(1);
 		List cats = crit.list();
-		
+		//end transaction
+		tx.commit();
 		//Iterate answer
         for (Iterator it = cats.iterator(); it.hasNext();) {
         	UserBean user = (UserBean) it.next();
@@ -119,6 +106,7 @@ public class AuthenticationController extends HttpServlet {
     		return;
         }
 		
+        
 	}
 
 

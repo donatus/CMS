@@ -9,22 +9,23 @@ public class MachineKindBean {
 			protected Long id;
 			protected String name;
 			protected String description;
+			
 			protected Long getId() {
 				return id;
 			}
 			protected void setId(Long id) {
 				this.id = id;
 			}
-			protected String getName() {
+			public String getName() {
 				return name;
 			}
-			protected void setName(String name) {
+			public void setName(String name) {
 				this.name = name;
 			}
-			protected String getDescription() {
+			public String getDescription() {
 				return description;
 			}
-			protected void setDescription(String description) {
+			public void setDescription(String description) {
 				this.description = description;
 			}
 			

@@ -96,6 +96,5 @@ public class SessionFactoryUtil {
 		if (sessionFactory != null)
 			sessionFactory.close();
 		sessionFactory = null;
-
 	}
 }
