@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="ch.unine.CMS.model.EventBean" table="t_events">
+	   <id name="id" type="long" column="id" >
+	   <generator class="increment"/>
+	  </id>
+
+	  <property name="startTime">
+		 <column name="start_time" />
+	  </property>
+	  <property name="endTime">
+		<column name="end_time"/>
+	  </property>
+	  <property name="name">
+		<column name="name"/>
+	  </property>
+	  <property name="description">
+		<column name="description"/>
+	  </property>
+	  <property name="userId">
+		<column name="user_id"/>
+	  </property>
+   </class>
+	<class name="ch.unine.CMS.model.EventHasMachineBean" table="t_events_has_t_machines">
+	   <id name="id" type="long" column="id" >
+	   <generator class="increment"/>
+	  </id>
+
+	  <property name="eventId">
+		 <column name="event_id" />
+	  </property>
+	  <property name="machineId">
+		<column name="machine_id"/>
+	  </property>
+   </class>
+	
+	<class name="ch.unine.CMS.model.MachineKindBean" table="t_machine_kinds">
+	   <id name="id" type="long" column="id" >
+	   <generator class="increment"/>
+	  </id>
+	  <property name="name">
+		<column name="name"/>
+	  </property>
+	  <property name="description">
+		<column name="description"/>
+	  </property>
+   </class>
+	
+	<class name="ch.unine.CMS.model.MachineBean" table="t_machines">
+	   <id name="id" type="long" column="id" >
+	   <generator class="increment"/>
+	  </id>
+
+	  <property name="IP">
+		 <column name="IP" />
+	  </property>
+	  <property name="machineKindId">
+		<column name="machine_kind_id"/>
+	  </property>
+	</class>
+	<class name="ch.unine.CMS.model.UserBean" table="t_users">
+	   <id name="id" type="long" column="id" >
+	   <generator class="increment"/>
+	  </id>
+
+	  <property name="login">
+		 <column name="login" />
+	  </property>
+	  <property name="passwd">
+		<column name="passwd"/>
+	  </property>
+	  <property name="contact">
+		<column name="contact"/>
+	  </property>
+   </class>
+</hibernate-mapping>

@@ -42,6 +42,8 @@
 			return false;
 		});
 		
+		$( "#radio" ).buttonset();
+		
 		//New machine generation dialog
 		$('#newMachineDialog').dialog({
 			autoOpen: false,
@@ -54,7 +56,7 @@
 					$.ajax( {
 				      type: "POST",
 				      url: "/CMS/MachineController",
-				      data: {fct : 'createMachine',name : $("#machineKindName").val(), description : $("#machineKindDescription").val()},
+				      data: {fct : 'createMachine',ip : $("#machineIp").val(), machineKind : $("#radio").val()},
 				      success: function(data){
 				    	  if(data == "OK"){
 				    	  	$('#newMachineDialog').dialog("close");
@@ -65,16 +67,6 @@
 				      }
 				    })
 				} 
-			}
-		});
-		
-		$( "#machineKind" ).autocomplete({
-			source: "machineKindSearch.jsp",
-			minLength: 2,
-			select: function( event, ui ) {
-				log( ui.item ?
-					"Selected: " + ui.item.value + " aka " + ui.item.id :
-					"Nothing selected, input was " + this.value );
 			}
 		});
 		
@@ -156,8 +148,9 @@
 			int i = 0;
 			//Iterate answer
 	        for (Iterator it = cats.iterator(); it.hasNext();) {
-	        	MachineKindBean user = (MachineKindBean) it.next();
-				out.println("<input type='radio' id='radio' name='machineKind' id='machineKind' class='text ui-widget-content ui-corner-all' />");
+	        	MachineKindBean m = (MachineKindBean) it.next();
+				out.print("<input type='radio' id='radio" + i +"' name='machineKind' id='machineKind' class='text ui-widget-content ui-corner-all' />");
+				out.println("<label for='radio" + i + "'>" + m.getName() + "</label>");
 			}
 			%>
 			

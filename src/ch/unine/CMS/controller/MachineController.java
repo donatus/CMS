@@ -42,7 +42,7 @@ public class MachineController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//capuring operation 
 		String op = request.getParameter("fct");
-		
+		String o;
 		if(op.equals(CREATE_MACHINE_KIND_FCT)){
 			String name 		= request.getParameter("name");
 			String description 	= request.getParameter("description");
@@ -63,10 +63,11 @@ public class MachineController extends HttpServlet {
 			
     		out.print("OK");
     		out.close();
-    		return;
     		
+    		return;
 		}else if(op.equals(CREATE_MACHINE_FCT)){
-			
+			o = request.getParameter("machineKind");
+			System.out.println(o);
 		}
 		
 	}
