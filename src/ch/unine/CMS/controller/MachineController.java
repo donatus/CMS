@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import ch.unine.CMS.model.MachineBean;
 import ch.unine.CMS.model.MachineKindBean;
 import ch.unine.CMS.model.SessionFactoryUtil;
 
@@ -66,8 +67,25 @@ public class MachineController extends HttpServlet {
     		
     		return;
 		}else if(op.equals(CREATE_MACHINE_FCT)){
-			o = request.getParameter("machineKind");
-			System.out.println(o);
+			Long machineKindId 	= new Long(request.getParameter("machineKind"));
+			String ip			=  request.getParameter("ip");
+			//Get hibernate session
+			Session sessionHibernate =  SessionFactoryUtil.getInstance().getCurrentSession();
+			
+			//Begin transaction
+			Transaction tx = sessionHibernate.beginTransaction();
+		      
+			MachineBean m	= new MachineBean();
+			m.setIP(ip);
+			m.setMachineKindId(machineKindId);
+			sessionHibernate.save(m);
+			//close transaction
+			tx.commit();
+			
+			PrintWriter out = response.getWriter();
+			
+    		out.print("OK");
+    		out.close();
 		}
 		
 	}

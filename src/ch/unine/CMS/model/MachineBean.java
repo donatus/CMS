@@ -10,30 +10,28 @@ public class MachineBean {
 	Long machineKindId;
 	String IP;
 	
-	protected String getIP() {
+	public String getIP() {
 		return IP;
 	}
 
-	protected void setIP(String iP) {
+	public void setIP(String iP) {
 		IP = iP;
 	}
 
-	protected Long getMachineKindId() {
+	public Long getMachineKindId() {
 		return machineKindId;
 	}
 
-	protected void setMachineKindId(Long machineKindId) {
+	public void setMachineKindId(Long machineKindId) {
 		this.machineKindId = machineKindId;
 	}
 
 	
-	protected Long getId() {
+	public Long getId() {
 		return id;
 	}
 
 	protected void setId(Long id) {
 		this.id = id;
 	}
-
-	
 }

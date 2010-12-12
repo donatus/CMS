@@ -1,3 +1,4 @@
+<%@page import="ch.unine.CMS.model.MachineBean"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.List"%>
 <%@page import="ch.unine.CMS.model.MachineKindBean"%>
@@ -56,10 +57,11 @@
 					$.ajax( {
 				      type: "POST",
 				      url: "/CMS/MachineController",
-				      data: {fct : 'createMachine',ip : $("#machineIp").val(), machineKind : $("#radio").val()},
+				      data: {fct : 'createMachine',ip : $("#machineIP").val(), machineKind : $('input[type=radio][name=machineKind]:checked').attr('value')},
 				      success: function(data){
 				    	  if(data == "OK"){
 				    	  	$('#newMachineDialog').dialog("close");
+				    	  	$('#tabs').tabs('load', $('#tabs').tabs('option', 'selected'));
 				    	  }
 				      },
 				      error: function(data){
@@ -101,6 +103,7 @@
 				      success: function(data){
 				    	  if(data == "OK"){
 				    	  	$('#newMachineKindDialog').dialog("close");
+				    	  	$('#tabs').tabs('load', $('#tabs').tabs('option', 'selected'));
 				    	  }
 				      },
 				      error: function(data){
@@ -127,12 +130,12 @@
 
 	<!--  New Machine Dialog Box -->
 	<div id="newMachineDialog" title="Create Machine">
-		<form>
+		<form id="radioForm">
 		<fieldset>
 			<label for="machineIP">IP</label>
 			<input type="text" name="machineIP" id="machineIP" class="text ui-widget-content ui-corner-all" />
 			
-			<label for="machineKind">Machine generation</label>
+			<!--  <label for="machineKind">Machine generation</label> -->
 			
 			<% 
 			//Get hibernate session
@@ -142,6 +145,10 @@
 			//Create query
 			Criteria crit = sessionHibernate.createCriteria(MachineKindBean.class);
 			List cats = crit.list();
+			//Create query
+			crit = sessionHibernate.createCriteria(MachineBean.class);
+			//get the lists
+			List machines = crit.list();
 			//end transaction
 			tx.commit();
 			//counter
@@ -149,7 +156,7 @@
 			//Iterate answer
 	        for (Iterator it = cats.iterator(); it.hasNext();) {
 	        	MachineKindBean m = (MachineKindBean) it.next();
-				out.print("<input type='radio' id='radio" + i +"' name='machineKind' id='machineKind' class='text ui-widget-content ui-corner-all' />");
+				out.print("<input type='radio' id='radio" + i +"' name='machineKind' class='text ui-widget-content ui-corner-all' value='" + m.getId().toString() + "'/>");
 				out.println("<label for='radio" + i + "'>" + m.getName() + "</label>");
 			}
 			%>
@@ -164,55 +171,24 @@
 	</span>
 	
 	<div id="accordion">
-		<h3><a href="#">Generation 1</a></h3>
-		<div>
-			<ol id="selectable">
-				<li class="ui-state-default">
-					<div style="width:100px; height:80px;" class="ui-widget-content">	
-						Machine 1
-					</div>
-				</li>
-				<li class="ui-state-default">
-					<div style="width:100px; height:80px;" class="ui-widget-content">	
-						Machine 2
-					</div>
-				</li>
-				<li class="ui-state-default">
-					<div style="width:100px; height:80px;" class="ui-widget-content">
-						Machine 3
-					</div>
-				</li>
-				<li class="ui-state-default">
-					<div style="width:100px; height:80px;" class="ui-widget-content">
-						Machine 4
-					</div>
-				</li>
-			</ol>
-		</div>
-		
-		<h3><a href="#">Generation 1</a></h3>
-		<div>
-			<ol id="selectable">
-				<li class="ui-state-default">
-					<div style="width:100px; height:80px;" class="ui-widget-content">	
-						Machine 1
-					</div>
-				</li>
-				<li class="ui-state-default">
-					<div style="width:100px; height:80px;" class="ui-widget-content">	
-						Machine 2
-					</div>
-				</li>
-				<li class="ui-state-default">
-					<div style="width:100px; height:80px;" class="ui-widget-content">
-						Machine 3
-					</div>
-				</li>
-				<li class="ui-state-default">
-					<div style="width:100px; height:80px;" class="ui-widget-content">
-						Machine 4
-					</div>
-				</li>
-			</ol>
-		</div>
+	<!--  Create machines view -->
+	
+	<%
+	//Iterate answer
+    for (Iterator it = cats.iterator(); it.hasNext();) {
+    	MachineKindBean m = (MachineKindBean) it.next();
+		out.print("<h3><a href='#'>" + m.getName() +  " " + m.getDescription() + "</a></h3>");
+		out.print("<div>");
+		out.print("<ol id='selectable'>");
+			for(Iterator itMachines = machines.iterator(); itMachines.hasNext();){
+				MachineBean machine = (MachineBean) itMachines.next();
+				if(machine.getMachineKindId() == m.getId()){
+					out.print("<li class='ui-state-default'><div style='width:100px; height:80px;' class='ui-widget-content'>");
+					out.print(machine.getIP()); 
+					out.print("</div></li>");
+				}
+			}
+		out.print("</ol></div>");
+	}
+	%>
 	</div>

@@ -50,6 +50,7 @@
 		<li><a href="#tabs-2">Booking</a></li>
 		<li><a href="machineManagement.jsp">Machine Management</a></li>
 	</ul>
+	
 	<div id="tabs-1">
 		<p></p>
 	</div>

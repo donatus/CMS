@@ -57,6 +57,7 @@
 	  <property name="IP">
 		 <column name="IP" />
 	  </property>
+	  
 	  <property name="machineKindId">
 		<column name="machine_kind_id"/>
 	  </property>
