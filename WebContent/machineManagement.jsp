@@ -14,13 +14,12 @@
 	#selectable .ui-selecting { background: #FECA40; }
 	#selectable .ui-selected { background: #F39814; color: white; }
 	#selectable { list-style-type: none; margin: 0; padding: 0; }
-	#selectable li {float: left; width: 100px; height: 80px; text-align: center; }
+	#selectable li {float: left; width: 100px; height: 100px; text-align: center; }
 	</style>
 	
 	<style>
-	#toolbar {
-		padding: 10px 4px;
-	}
+	
+
 	</style>
 	
     <script type="text/javascript">
@@ -43,7 +42,7 @@
 			return false;
 		});
 		
-		$( "#radio" ).buttonset();
+		$( "#radioForm" ).buttonset();
 		
 		//New machine generation dialog
 		$('#newMachineDialog').dialog({
@@ -114,6 +113,9 @@
 			}
 		});
 		
+		
+		
+		
 	})
 	</script>
 	<!--  New Machine Kind Dialog Box -->
@@ -130,11 +132,11 @@
 
 	<!--  New Machine Dialog Box -->
 	<div id="newMachineDialog" title="Create Machine">
-		<form id="radioForm">
+		<form>
 		<fieldset>
 			<label for="machineIP">IP</label>
 			<input type="text" name="machineIP" id="machineIP" class="text ui-widget-content ui-corner-all" />
-			
+			<div id="radioForm">
 			<!--  <label for="machineKind">Machine generation</label> -->
 			
 			<% 
@@ -158,14 +160,15 @@
 	        	MachineKindBean m = (MachineKindBean) it.next();
 				out.print("<input type='radio' id='radio" + i +"' name='machineKind' class='text ui-widget-content ui-corner-all' value='" + m.getId().toString() + "'/>");
 				out.println("<label for='radio" + i + "'>" + m.getName() + "</label>");
+				i++;
 			}
 			%>
-			
+			</div>
 		</fieldset>
 		</form>
 	</div>
 
-	<span id="toolbar" class="ui-widget-header ui-corner-all">
+	<span id="toolbar" align="left" class="ui-widget-header ui-corner-all ui-helper-clearfix">
 		<button id="AddMachine">Machine</button>
 		<button id="AddMachineKind">Machine Generation</button>
 	</span>
@@ -183,8 +186,13 @@
 			for(Iterator itMachines = machines.iterator(); itMachines.hasNext();){
 				MachineBean machine = (MachineBean) itMachines.next();
 				if(machine.getMachineKindId() == m.getId()){
-					out.print("<li class='ui-state-default'><div style='width:100px; height:80px;' class='ui-widget-content'>");
-					out.print(machine.getIP()); 
+					out.print("<li class='ui-state-default'><div style='width:100px; height:100px;'>");
+					
+					out.print("<h3>" + machine.getIP() + "</h3>"); 
+					out.print("<script type='text/javascript'>$('#stopMachine" +  machine.getId() +"').button({icons: {primary: 'ui-icon-power'}})</script>");
+					out.print("<button id='stopMachine" + machine.getId() + "'>Stop</button>");
+					out.print("<script type='text/javascript'>$('#sendImage" +  machine.getId() +"').button({icons: {primary: 'ui-icon-folder-open'}})</script>");
+					out.print("<button id='sendImage" + machine.getId() + "'>Image...</button>");
 					out.print("</div></li>");
 				}
 			}
