@@ -44,8 +44,13 @@
 		</style>
 		
 		<link type="text/css" href="css/ui-lightness/jquery-ui-1.8.6.custom.css" rel="stylesheet" />	
+		<link rel='stylesheet' type='text/css' href='js/fullcalendar/fullcalendar.css' />
+		
 		<script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
 		<script type="text/javascript" src="js/jquery-ui-1.8.6.custom.min.js"></script>
+		<script type='text/javascript' src='js/fullcalendar/fullcalendar.min.js'></script> 
+		<script type='text/javascript' src='js/fullcalendar/gcal.js'></script> 
+		<script type="text/javascript" src="http://www.google.com/jsapi"></script>
 		<script type="text/javascript">
 		
 		$(function(){
@@ -72,7 +77,7 @@
 		<img src="header2.png"/>
 		<ul>
 			<li><a href="#tabs-1">Home</a></li>
-			<li><a href="#tabs-2">Booking</a></li>
+			<li><a href="booking.jsp">Booking</a></li>
 			<li><a href="machineManagement.jsp">Machine Management</a></li>
 		</ul>
 		
