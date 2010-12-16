@@ -24,6 +24,7 @@
 	</style>
 	
     <script type="text/javascript">
+    
 	$(function(){
 		//Acoordion specification
 		$( "#accordion" ).accordion();
@@ -118,6 +119,23 @@
 		
 		
 	})
+	
+	function startMachine(id){
+		$.ajax( {
+		      type: "POST",
+		      url: "/CMS/MachineController",
+		      data: {fct : 'startMachine',id :id},
+		      success: function(data){
+		    	  if(data == "OK"){
+		    	  	$('#tabs').tabs('load', $('#tabs').tabs('option', 'selected'));
+		    	  }
+		      },
+		      error: function(data){
+		    	  
+		      }
+		    })
+	}
+	
 	</script>
 	<!--  New Machine Kind Dialog Box -->
 	<div id="newMachineKindDialog" title="Create Machine generation">
@@ -175,6 +193,7 @@
 	</span>
 	
 	<div id="accordion">
+	
 	<!--  Create machines view -->
 	
 	<%
@@ -192,7 +211,7 @@
 					InetAddress inet = InetAddress.getByName(machine.getIP());
 					if(inet.isReachable(100)){
 						out.print("<h3 style='color:green;'>" + machine.getIP() + "</h3>");
-						out.print("<script type='text/javascript'>$('#stopMachine" +  machine.getId() +"').button({icons: {primary: 'ui-icon-power'}})</script>");
+						out.print("<script type='text/javascript'>$('#stopMachine" +  machine.getId() +"').button({icons: {primary: 'ui-icon-power'}});$('#stopMachine" +  machine.getId() +"').click(function(){startMachine("+ machine.getId() +")})</script>");
 						out.print("<button id='stopMachine" + machine.getId() + "'>Stop</button>");
 						out.print("<script type='text/javascript'>$('#sendImage" +  machine.getId() +"').button({icons: {primary: 'ui-icon-folder-open'}})</script>");
 						out.print("<button id='sendImage" + machine.getId() + "'>Image...</button>");
@@ -201,9 +220,7 @@
 						out.print("<script type='text/javascript'>$('#startMachine" +  machine.getId() +"').button({icons: {primary: 'ui-icon-power'}})</script>");
 						out.print("<button id='startMachine" + machine.getId() + "'>Start</button>");
 					}
-						out.print("</div></li>");
-					
-					
+					out.print("</div></li>");
 				}
 			}
 		out.print("</ol></div>");

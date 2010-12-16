@@ -21,7 +21,9 @@ import ch.unine.CMS.model.SessionFactoryUtil;
 public class MachineController extends HttpServlet {
 	private static final long serialVersionUID 			= 1L;
 	private static final String CREATE_MACHINE_KIND_FCT = "createMachineKind";
-	private static final Object CREATE_MACHINE_FCT 		= "createMachine";
+	private static final String CREATE_MACHINE_FCT 		= "createMachine";
+	private static final String START_MACHINE_FCT 		= "startMachine";
+	private static final String STOP_MACHINE_FCT 		= "stopMachine";
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -86,6 +88,10 @@ public class MachineController extends HttpServlet {
 			
     		out.print("OK");
     		out.close();
+		}else if(op.equals(START_MACHINE_FCT)){
+			//TODO
+		}else if(op.equals(STOP_MACHINE_FCT)){
+			//TODO
 		}
 		
 	}
