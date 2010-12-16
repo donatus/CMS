@@ -1,3 +1,4 @@
+<%@page import="java.net.InetAddress"%>
 <%@page import="ch.unine.CMS.model.MachineBean"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.List"%>
@@ -188,12 +189,21 @@
 				if(machine.getMachineKindId() == m.getId()){
 					out.print("<li class='ui-state-default'><div style='width:100px; height:100px;'>");
 					
-					out.print("<h3>" + machine.getIP() + "</h3>"); 
-					out.print("<script type='text/javascript'>$('#stopMachine" +  machine.getId() +"').button({icons: {primary: 'ui-icon-power'}})</script>");
-					out.print("<button id='stopMachine" + machine.getId() + "'>Stop</button>");
-					out.print("<script type='text/javascript'>$('#sendImage" +  machine.getId() +"').button({icons: {primary: 'ui-icon-folder-open'}})</script>");
-					out.print("<button id='sendImage" + machine.getId() + "'>Image...</button>");
-					out.print("</div></li>");
+					InetAddress inet = InetAddress.getByName(machine.getIP());
+					if(inet.isReachable(100)){
+						out.print("<h3 style='color:green;'>" + machine.getIP() + "</h3>");
+						out.print("<script type='text/javascript'>$('#stopMachine" +  machine.getId() +"').button({icons: {primary: 'ui-icon-power'}})</script>");
+						out.print("<button id='stopMachine" + machine.getId() + "'>Stop</button>");
+						out.print("<script type='text/javascript'>$('#sendImage" +  machine.getId() +"').button({icons: {primary: 'ui-icon-folder-open'}})</script>");
+						out.print("<button id='sendImage" + machine.getId() + "'>Image...</button>");
+					}else{
+						out.print("<h3 style='color:red;'>" + machine.getIP() + "</h3>");
+						out.print("<script type='text/javascript'>$('#startMachine" +  machine.getId() +"').button({icons: {primary: 'ui-icon-power'}})</script>");
+						out.print("<button id='startMachine" + machine.getId() + "'>Start</button>");
+					}
+						out.print("</div></li>");
+					
+					
 				}
 			}
 		out.print("</ol></div>");
