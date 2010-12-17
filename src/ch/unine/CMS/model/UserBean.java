@@ -22,7 +22,7 @@ public class UserBean {
 		protected void setLogin(String login) {
 			this.login = login;
 		}
-		protected String getPasswd() {
+		public String getPasswd() {
 			return passwd;
 		}
 		protected void setPasswd(String passwd) {

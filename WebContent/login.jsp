@@ -1,6 +1,15 @@
+<%@page import="ch.unine.CMS.controller.AuthenticationController"%>
+<%@page import="ch.unine.CMS.tool.Tool"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     
+    <% 
+  		//Salt
+		String salt;
+    	salt = Tool.SHA2(Double.toString(Math.random()));
+    	session.setAttribute("salt", salt);
+    	
+    %>
     <script type="text/javascript">
 	$(function(){
 		$('#dialog').dialog({
@@ -12,9 +21,11 @@
 			draggable: false,
 			buttons: {
 				"Login": function() {
+					
 					$.ajax( {
 				      type: "POST",
 				      url: "/CMS/AuthenticationController",
+				      //data: {login : $("#login").val(), passwd : SHA256($("#password").val() + '<%= salt %>')},
 				      data: {login : $("#login").val(), passwd : $("#password").val()},
 				      success: function(data){
 				    	  if(data == "OK"){
@@ -34,7 +45,6 @@
 	})
 	</script>
 
- 
 <div id="dialog" title="Login to CMS">
 	<!--  <p class="validateTips">All form fields are required.</p>-->
 

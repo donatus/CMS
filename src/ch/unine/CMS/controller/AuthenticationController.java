@@ -2,6 +2,7 @@ package ch.unine.CMS.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.security.NoSuchAlgorithmException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
@@ -20,7 +21,13 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
+import sun.misc.BASE64Decoder;
+import sun.misc.BASE64Encoder;
+
+import com.google.gdata.util.common.util.Base64;
+
 import ch.unine.CMS.model.*;
+import ch.unine.CMS.tool.Tool;
 
 
 
@@ -29,6 +36,8 @@ import ch.unine.CMS.model.*;
  */
 public class AuthenticationController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+
+	public static final String SALT 			= "salt";
 	
 	private static String getUserLogin(String login, String password) {
 		return "FROM UserBean u WHERE u.login = " + login + " AND  u.passwd = " + password;
@@ -76,11 +85,14 @@ public class AuthenticationController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//Get current session
 		HttpSession session = request.getSession();
+		
+		
 		//Result (login) declaration
 		boolean result 		= false;
 		//capturing parameters (login and password)
 		String login 		= request.getParameter("login");
 		String password 	= request.getParameter("passwd");
+		String salt 		= (String) session.getAttribute(SALT);
 		
 		//Get hibernate session
 		Session sessionHibernate =  SessionFactoryUtil.getInstance().getCurrentSession();
@@ -98,11 +110,18 @@ public class AuthenticationController extends HttpServlet {
         for (Iterator it = cats.iterator(); it.hasNext();) {
         	UserBean user = (UserBean) it.next();
         	//Session inscription
-    		session.setAttribute(LOGIN_NAME, login);
-    		session.setAttribute(LOGIN_TS, new Date());
-    		PrintWriter out = response.getWriter();
-    		out.print("OK");
-    		out.close();
+        	//try {
+        		//String challenge = Tool.SHA2(user.getPasswd().concat(salt));
+				//if(challenge.equals(password)){
+					session.setAttribute(LOGIN_NAME, login);
+					session.setAttribute(LOGIN_TS, new Date());
+					PrintWriter out = response.getWriter();
+					out.print("OK");
+					out.close();
+				//}
+			//} catch (NoSuchAlgorithmException e) {
+				//System.out.println("Error");
+			//}
     		return;
         }
 		
