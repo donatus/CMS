@@ -50,7 +50,7 @@
 		<script type="text/javascript" src="js/jquery-ui-1.8.6.custom.min.js"></script>
 		<script type='text/javascript' src='js/fullcalendar/fullcalendar.min.js'></script> 
 		<script type='text/javascript' src='js/fullcalendar/gcal.js'></script> 
-		<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+		<!-- <script type="text/javascript" src="http://www.google.com/jsapi"></script>-->
 		<script type="text/javascript">
 		
 		$(function(){

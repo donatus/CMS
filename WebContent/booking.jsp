@@ -35,7 +35,6 @@
 			},
 			className:       'gcal-event',
             editable:        true,
-            theme: true
 			
 		});
 		

@@ -15,7 +15,7 @@
 	#selectable .ui-selecting { background: #FECA40; }
 	#selectable .ui-selected { background: #F39814; color: white; }
 	#selectable { list-style-type: none; margin: 0; padding: 0; }
-	#selectable li {float: left; width: 100px; height: 100px; text-align: center; }
+	#selectable li {float: left; width: 100px; height: 150px; text-align: center; }
 	</style>
 	
 	<style>
@@ -115,10 +115,47 @@
 			}
 		});
 		
+		$( "#radioFormEdit" ).buttonset();
+		
+		//New machine generation dialog
+		$('#editMachineDialog').dialog({
+			autoOpen: false,
+			modal: true,
+			resizable: false,
+			open: function(event, ui) { $(".ui-dialog-titlebar-close").hide(); },
+			draggable: false,
+			buttons: {
+				"OK": function() {
+					$.ajax( {
+				      type: "POST",
+				      url: "/CMS/MachineController",
+				      data: {fct : 'editMachine',id:$("#machineIDEdit").val(), ip : $("#machineIPEdit").val(), machineKind : $('input[type=radio][name=machineKindEdit]:checked').attr('value')},
+				      success: function(data){
+				    	  if(data == "OK"){
+				    	  	$('#editMachineDialog').dialog("close");
+				    	  	$('#tabs').tabs('load', $('#tabs').tabs('option', 'selected'));
+				    	  }
+				      },
+				      error: function(data){
+				    	  
+				      }
+				    })
+				} 
+			}
+		});
 		
 		
 		
 	})
+	
+	function editMachine(id,ip,kind){
+		//$("#machineKindEdit") machineIPEdit
+		$("#machineIPEdit").val(ip);
+		$("#machineIDEdit").val(id);
+		//$("radioEdit" + kind.toString())
+		$( "#editMachineDialog" ).dialog( "open" );
+		
+	}
 	
 	function startMachine(id){
 		$.ajax( {
@@ -187,6 +224,33 @@
 		</form>
 	</div>
 
+	<!--  New Machine Dialog Box -->
+	<div id="editMachineDialog" title="Edit Machine">
+		<form>
+		<fieldset>
+			<label>Index</label>
+			<label id="machineIDEdit" class="text ui-widget-content ui-corner-all"></label>
+			<label for="machineIPEdit">IP</label>
+			<input type="text" name="machineIPEdit" id="machineIPEdit" class="text ui-widget-content ui-corner-all" />
+			<div id="radioFormEdit">
+			<!--  <label for="machineKind">Machine generation</label> -->
+			
+			<% 
+			//counter
+			i = 0;
+			//Iterate answer
+	        for (Iterator it = cats.iterator(); it.hasNext();) {
+	        	MachineKindBean m = (MachineKindBean) it.next();
+				out.print("<input type='radio' id='radioEdit" + m.getId().toString() +"' name='machineKindEdit' class='text ui-widget-content ui-corner-all' value='" + m.getId().toString() + "'/>");
+				out.println("<label for='radioEdit" + m.getId().toString() + "'>" + m.getName() + "</label>");
+				i++;
+			}
+			%>
+			</div>
+		</fieldset>
+		</form>
+	</div>
+	
 	<span id="toolbar" align="left" class="ui-widget-header ui-corner-all ui-helper-clearfix">
 		<button id="AddMachine">Machine</button>
 		<button id="AddMachineKind">Machine Generation</button>
@@ -208,8 +272,14 @@
 				if(machine.getMachineKindId() == m.getId()){
 					out.print("<li class='ui-state-default'><div style='width:100px; height:100px;'>");
 					
-					InetAddress inet = InetAddress.getByName(machine.getIP());
-					if(inet.isReachable(100)){
+					boolean b = false;
+					
+					try{
+						InetAddress inet 	= InetAddress.getByName(machine.getIP());
+						b	 				= inet.isReachable(100);
+					}catch(Exception c){}
+					
+					if(b){
 						out.print("<h3 style='color:green;'>" + machine.getIP() + "</h3>");
 						out.print("<script type='text/javascript'>$('#stopMachine" +  machine.getId() +"').button({icons: {primary: 'ui-icon-power'}});$('#stopMachine" +  machine.getId() +"').click(function(){startMachine("+ machine.getId() +")})</script>");
 						out.print("<button id='stopMachine" + machine.getId() + "'>Stop</button>");
@@ -220,6 +290,10 @@
 						out.print("<script type='text/javascript'>$('#startMachine" +  machine.getId() +"').button({icons: {primary: 'ui-icon-power'}})</script>");
 						out.print("<button id='startMachine" + machine.getId() + "'>Start</button>");
 					}
+					
+					out.print("<script type='text/javascript'>$('#editMachine" +  machine.getId() +"').button({icons: {primary: 'ui-icon-power'}});$('#editMachine" +  machine.getId() +"').click(function(){editMachine(" + machine.getId() + ",'"  + machine.getIP() + "'," + machine.getMachineKindId() + ")})</script>");
+					out.print("<button id='editMachine" + machine.getId() + "'>Edit</button>");
+					
 					out.print("</div></li>");
 				}
 			}
