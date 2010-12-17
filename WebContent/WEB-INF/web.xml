@@ -29,4 +29,14 @@
     <servlet-name>AuthenticationController</servlet-name>
     <url-pattern>/AuthenticationController</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>EventController</display-name>
+    <servlet-name>EventController</servlet-name>
+    <servlet-class>ch.unine.CMS.controller.EventController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>EventController</servlet-name>
+    <url-pattern>/EventController</url-pattern>
+  </servlet-mapping>
 </web-app>
