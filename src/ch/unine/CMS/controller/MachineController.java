@@ -24,6 +24,7 @@ public class MachineController extends HttpServlet {
 	private static final String CREATE_MACHINE_FCT 		= "createMachine";
 	private static final String START_MACHINE_FCT 		= "startMachine";
 	private static final String STOP_MACHINE_FCT 		= "stopMachine";
+	private static final String EDIT_MACHINE_FCT 		= "editMachine";
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -69,6 +70,26 @@ public class MachineController extends HttpServlet {
     		
     		return;
 		}else if(op.equals(CREATE_MACHINE_FCT)){
+			Long machineKindId 	= new Long(request.getParameter("machineKind"));
+			String ip			=  request.getParameter("ip");
+			//Get hibernate session
+			Session sessionHibernate =  SessionFactoryUtil.getInstance().getCurrentSession();
+			
+			//Begin transaction
+			Transaction tx = sessionHibernate.beginTransaction();
+		      
+			MachineBean m	= new MachineBean();
+			m.setIP(ip);
+			m.setMachineKindId(machineKindId);
+			sessionHibernate.save(m);
+			//close transaction
+			tx.commit();
+			
+			PrintWriter out = response.getWriter();
+			
+    		out.print("OK");
+    		out.close();
+		}else if(op.equals(EDIT_MACHINE_FCT)){
 			Long machineKindId 	= new Long(request.getParameter("machineKind"));
 			String ip			=  request.getParameter("ip");
 			//Get hibernate session
