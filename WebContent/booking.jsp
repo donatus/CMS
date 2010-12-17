@@ -8,7 +8,7 @@
 <%@page import="org.hibernate.Session"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<link rel='stylesheet' type='text/css' href='../fullcalendar/fullcalendar.css' /> 
+<!--  <link rel='stylesheet' type='text/css' href='../fullcalendar/fullcalendar.css' />--> 
 
 
 <script type='text/javascript'> 
