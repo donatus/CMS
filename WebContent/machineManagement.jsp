@@ -15,7 +15,7 @@
 	#selectable .ui-selecting { background: #FECA40; }
 	#selectable .ui-selected { background: #F39814; color: white; }
 	#selectable { list-style-type: none; margin: 0; padding: 0; }
-	#selectable li {float: left; width: 100px; height: 100px; text-align: center; }
+	#selectable li {float: left; width: 100px; height: 150px; text-align: center; }
 	</style>
 	
 	<style>
