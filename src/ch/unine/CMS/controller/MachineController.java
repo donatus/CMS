@@ -126,9 +126,9 @@ public class MachineController extends HttpServlet {
     		out.print("OK");
     		out.close();
 		}else if(op.equals(START_MACHINE_FCT)){
-			//TODO
+			System.out.println("START CMD");
 		}else if(op.equals(STOP_MACHINE_FCT)){
-			//TODO
+			System.out.println("STOP CMD");
 		}
 		
 	}
